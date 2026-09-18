@@ -64,7 +64,7 @@ export default function StayTransCard({ hotels, nextRoute, cityColor, stayDates,
               </button>
             </div>
             {stayDates && (
-              <p className="stay-duration-note">🛏️ {stayDates} 동안 한 숙소에서 연박 추천</p>
+              <p className="stay-duration-note">🛏️ {stayDates} 연박</p>
             )}
 
             {isAddingHotel && (
