@@ -15,8 +15,7 @@ function renderItemHtml(item) {
   return `<span class="item-text item-text-noicon">${item}</span>`;
 }
 
-export default function DayScheduleCard({ day, cityColor, onUpdateDay, onDeleteDay }) {
-  const [isOpen, setIsOpen] = useState(false); // 기본값: 닫힘
+export default function DayScheduleCard({ day, cityColor, isOpen, onToggleOpen, onUpdateDay, onDeleteDay }) {
   const [isEditingHeader, setIsEditingHeader] = useState(false);
   const [headerData, setHeaderData] = useState({ date: day.date, title: day.title, tag: day.tag || '' });
   const [editingItemIdx, setEditingItemIdx] = useState(null);
@@ -60,7 +59,7 @@ export default function DayScheduleCard({ day, cityColor, onUpdateDay, onDeleteD
         <button
           type="button"
           className="day-toggle-btn"
-          onClick={() => setIsOpen(!isOpen)}
+          onClick={onToggleOpen}
           aria-expanded={isOpen}
         >
           <ChevronDown
@@ -81,7 +80,7 @@ export default function DayScheduleCard({ day, cityColor, onUpdateDay, onDeleteD
               e.stopPropagation();
               setHeaderData({ date: day.date, title: day.title, tag: day.tag || '' });
               setIsEditingHeader(true);
-              setIsOpen(true);
+              if (!isOpen) onToggleOpen();
             }}
             title="날짜/제목 수정"
           >

@@ -1,9 +1,28 @@
-import React from 'react';
-import { Plus } from 'lucide-react';
+import React, { useState } from 'react';
+import { Plus, ChevronsDown, ChevronsUp } from 'lucide-react';
 import DayScheduleCard from './DayScheduleCard';
 import StayTransCard from './StayTransCard';
 
 export default function CityPanel({ city, onUpdateCity }) {
+  // 일차별 펼침/닫힘 상태 (기본값: 전부 닫힘)
+  const [openDays, setOpenDays] = useState({});
+  const dayList = city.days || [];
+  const allOpen = dayList.length > 0 && dayList.every((d) => openDays[d.id]);
+
+  const handleToggleDay = (dayId) => {
+    setOpenDays((prev) => ({ ...prev, [dayId]: !prev[dayId] }));
+  };
+
+  const handleToggleAll = () => {
+    if (allOpen) {
+      setOpenDays({});
+    } else {
+      const next = {};
+      dayList.forEach((d) => { next[d.id] = true; });
+      setOpenDays(next);
+    }
+  };
+
   // 일차별 업데이트
   const handleUpdateDay = (updatedDay) => {
     const updatedDays = city.days.map((d) => (d.id === updatedDay.id ? updatedDay : d));
@@ -53,11 +72,20 @@ export default function CityPanel({ city, onUpdateCity }) {
 
       {/* 날짜별 일정 리스트 */}
       <div className="days-container">
-        {city.days && city.days.map((day) => (
+        {dayList.length > 0 && (
+          <button type="button" className="btn-toggle-all" onClick={handleToggleAll}>
+            {allOpen ? <ChevronsUp size={14} /> : <ChevronsDown size={14} />}
+            <span>{allOpen ? '전체 접기' : '전체 펼치기'}</span>
+          </button>
+        )}
+
+        {dayList.map((day) => (
           <DayScheduleCard
             key={day.id}
             day={day}
             cityColor={city.color}
+            isOpen={!!openDays[day.id]}
+            onToggleOpen={() => handleToggleDay(day.id)}
             onUpdateDay={handleUpdateDay}
             onDeleteDay={handleDeleteDay}
           />

@@ -118,7 +118,6 @@ export default function App() {
       </main>
 
       <footer className="app-footer">
-        <p className="footer-tagline">🇪🇸 스페인 &amp; 🇵🇹 포르투갈 15일 이베리아 신혼여행 플래너</p>
         <DataToolbar
           planData={planData}
           onUpdatePlan={handleUpdatePlan}

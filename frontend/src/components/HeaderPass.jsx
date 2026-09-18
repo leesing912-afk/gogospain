@@ -27,12 +27,12 @@ export default function HeaderPass({ headerPass, onUpdate }) {
           <h1>{headerPass.title}</h1>
           <button
             type="button"
-            className="btn-edit-pass"
+            className="btn-edit-pass btn-edit-pass-sm"
             onClick={handleOpen}
             title="항공권 및 기본 일정 요약 수정"
           >
-            <Edit2 size={13} />
-            <span>일정 요약 수정</span>
+            <Edit2 size={11} />
+            <span>수정</span>
           </button>
         </div>
       </div>
