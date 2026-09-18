@@ -1,0 +1,367 @@
+export const initialPlanData = {
+  headerPass: {
+    title: "바르셀로나→포르투 15일 이베리아 여정",
+    inCity: "IN 바르셀로나",
+    inDate: "4/18(일)",
+    inFlight: "KE 11:50 ICN→19:10 BCN",
+    outCity: "OUT 포르투",
+    outDate: "5/2(일)",
+    outFlight: "22:30 OPO→5/3(월) 19:25",
+    periodVal: "14박 15일",
+    periodSub: "도시 5곳/이동 4회",
+    routeVal: "항공/열차/버스/열차",
+    routeSub: "마요르카·마드리드 제외"
+  },
+  overview: {
+    cities: [
+      { colorVar: "var(--bcn)", name: "바르셀로나", dates: "4/18~4/22", highlight: "사그라다파밀리아/구엘공원/해변" },
+      { colorVar: "var(--and)", name: "그라나다", dates: "4/22~4/24", highlight: "알함브라 궁전" },
+      { colorVar: "var(--and)", name: "코르도바", dates: "4/24 경유", highlight: "메스키타(반나절)" },
+      { colorVar: "var(--and)", name: "세비야", dates: "4/24~4/27", highlight: "왕궁/대성당/플라멩코" },
+      { colorVar: "var(--lis)", name: "리스본", dates: "4/27~5/1", highlight: "벨렝/신트라/카스카이스" },
+      { colorVar: "var(--opo)", name: "포르투", dates: "5/1~5/2", highlight: "포트와인/리브라리아 렐루" }
+    ],
+    note: "예상 총경비(2인/항공 제외) 약 635~860만원 · 아래 탭에서 도시별 상세 일정과 예산/체크리스트 확인"
+  },
+  tabs: [
+    { id: "bcn", label: "바르셀로나", sub: "4.18~4.22", color: "var(--bcn)" },
+    { id: "gra", label: "그라나다·코르도바", sub: "4.22~4.24", color: "var(--and)" },
+    { id: "sev", label: "세비야", sub: "4.24~4.27", color: "var(--and)" },
+    { id: "lis", label: "리스본", sub: "4.27~5.1", color: "var(--lis)" },
+    { id: "opo", label: "포르투", sub: "5.1~5.2", color: "var(--opo)" },
+    { id: "budget", label: "예산", sub: "비용 정리", color: "var(--accent)" },
+    { id: "review", label: "장단점", sub: "요약", color: "var(--accent)" },
+    { id: "notice", label: "주의사항", sub: "체크포인트", color: "var(--warn)" },
+    { id: "checklist", label: "체크리스트", sub: "준비물 점검", color: "var(--good)" }
+  ],
+  cities: {
+    bcn: {
+      id: "bcn",
+      title: "바르셀로나",
+      dates: "4/18(일)~4/22(목)",
+      tagline: "지중해 볕과 가우디 건축으로 여독 회복 / 4월 말 평균 12~20℃로 산책 최적기",
+      color: "var(--bcn)",
+      days: [
+        {
+          id: "bcn-1",
+          date: "4/18(일)",
+          title: "도착/고딕지구 첫 밤",
+          items: [
+            "19:10 BCN 도착→공항철도로 시내 이동/체크인",
+            "고딕지구 야간 산책/대성당 야경",
+            "El Xampanyet에서 카바+타파스로 첫 저녁"
+          ],
+          tag: ""
+        },
+        {
+          id: "bcn-2",
+          date: "4/19(월)",
+          title: "가우디 건축 라인",
+          items: [
+            "사그라다 파밀리아 오전 관람(예약 필수)",
+            "구엘공원 오후/그라시아 거리 야간 산책",
+            "카사 바트요·카사 밀라 외관 조명 감상"
+          ],
+          tag: "사전예약 필수"
+        },
+        {
+          id: "bcn-3",
+          date: "4/20(화)",
+          title: "시장/해변/구시가",
+          items: [
+            "보케리아 시장 브런치/보른지구 산책",
+            "바르셀로네타 해변 휴식",
+            "Can Solé 또는 7 Portes에서 해산물 파에야"
+          ],
+          tag: "맛집 파에야"
+        },
+        {
+          id: "bcn-4",
+          date: "4/21(수)",
+          title: "몬주익/여유",
+          items: [
+            "케이블카로 몬주익 성 전망대",
+            "오후 자유시간/쇼핑 또는 스파로 컨디션 조절",
+            "짐 정리 후 다음날 오전 그라나다행 항공 대비"
+          ],
+          tag: ""
+        }
+      ],
+      hotels: [
+        { name: "Yurbban Passage Hotel & Spa", note: "에이샴플레 부티크/루프탑·스파, 예약률 1위" },
+        { name: "H10 Casa Mimosa", note: "명소 도보권, 가성비 스테디셀러" }
+      ],
+      nextRoute: "4/22(목) 오전 BCN→GRX 항공(직항 약 1시간20분)"
+    },
+    gra: {
+      id: "gra",
+      title: "그라나다 / 코르도바",
+      dates: "4/22(목)~4/24(토)",
+      tagline: "이슬람 건축의 정수 알함브라 / 4월 하순 초록 정원과 설산 대비가 절정",
+      color: "var(--and)",
+      days: [
+        {
+          id: "gra-1",
+          date: "4/22(목)",
+          title: "알바이신/노을",
+          items: [
+            "오전 항공 도착/체크인",
+            "알바이신 지구 골목/이슬람 시장 산책",
+            "산 니콜라스 전망대 일몰/음료 1잔당 타파스 무료 문화 체험"
+          ],
+          tag: ""
+        },
+        {
+          id: "gra-2",
+          date: "4/23(금)",
+          title: "알함브라 궁전",
+          items: [
+            "알함브라+헤네랄리페 정원 관람(3~4시간)",
+            "나스르 궁전 입장 시간대 지정/사전 예매 필수",
+            "오후 대성당·왕실 예배당"
+          ],
+          tag: "2~3개월 전 매진 흔함"
+        },
+        {
+          id: "gra-3",
+          date: "4/24(토)",
+          title: "코르도바 경유",
+          items: [
+            "기차로 코르도바 이동(약 2시간40분)/짐 보관함 이용",
+            "메스키타(모스크-대성당) 반나절 관람",
+            "꽃길(칼레하 데 라스 플로레스)/유대인지구 산책",
+            "저녁 AVE로 세비야 이동(약 45분)"
+          ],
+          tag: ""
+        }
+      ],
+      hotels: [
+        { name: "Hotel Casa 1800 Granada", note: "알바이신 초입/옥상에서 알함브라 조망" }
+      ],
+      nextRoute: "코르도바 경유 후 세비야 도착"
+    },
+    sev: {
+      id: "sev",
+      title: "세비야",
+      dates: "4/24(토)~4/27(화)",
+      tagline: "안달루시아의 심장 / 플라멩코 본고장·왕궁 스케일이 여정 중 최고 화려함",
+      color: "var(--and)",
+      days: [
+        {
+          id: "sev-1",
+          date: "4/24(토) 밤",
+          title: "첫 밤",
+          items: [
+            "저녁 도착/체크인",
+            "트리아나 지구 강변 야경 산책"
+          ],
+          tag: ""
+        },
+        {
+          id: "sev-2",
+          date: "4/25(일)",
+          title: "왕궁/대성당",
+          items: [
+            "레알 알카사르(왕궁) 오전 관람/사전 예약 권장",
+            "세비야 대성당·히랄다 탑 오후",
+            "산타크루스 지구 El Rinconcillo에서 저녁 타파스"
+          ],
+          tag: ""
+        },
+        {
+          id: "sev-3",
+          date: "4/26(월)",
+          title: "광장/플라멩코",
+          items: [
+            "스페인 광장/마리아 루이사 공원(오전 방문 추천)",
+            "메트로폴 파라솔 전망대",
+            "저녁 정통 플라멩코 공연(Los Gallos 등 예약)"
+          ],
+          tag: ""
+        }
+      ],
+      hotels: [
+        { name: "EME Catedral Hotel", note: "대성당 옆/루프탑에서 히랄다 뷰" },
+        { name: "Hotel Casa 1800 Sevilla", note: "산타크루스 부티크/조식 호평" }
+      ],
+      nextRoute: "4/27(화) 세비야→리스본 국제버스(직행열차 없음/약 6시간)"
+    },
+    lis: {
+      id: "lis",
+      title: "리스본",
+      dates: "4/27(화)~5/1(토)",
+      tagline: "일곱 언덕의 도시 / 아줄레주·트램·대항해 유적과 근교 신트라까지 여유롭게",
+      color: "var(--lis)",
+      days: [
+        {
+          id: "lis-1",
+          date: "4/27(화)",
+          title: "도착/알파마",
+          items: [
+            "오후 버스 도착/체크인",
+            "코메르시우 광장/아우구스타 거리 산책",
+            "알파마 지구 파두 공연 겸 저녁(Clube de Fado)"
+          ],
+          tag: ""
+        },
+        {
+          id: "lis-2",
+          date: "4/28(수)",
+          title: "벨렝 지구",
+          items: [
+            "제로니무스 수도원/발견기념비/벨렝탑",
+            "파스테이스 드 벨렝 에그타르트(오픈런 추천)",
+            "트램28 탑승/바이후알투 노을"
+          ],
+          tag: "맛집 에그타르트"
+        },
+        {
+          id: "lis-3",
+          date: "4/29(목)",
+          title: "신트라 당일치기",
+          items: [
+            "기차 40분/페나 궁전(예약 권장)·무어성",
+            "여유 시 헤갈레이라 별장 추가",
+            "체력에 따라 카보 다 호카 옵션"
+          ],
+          tag: ""
+        },
+        {
+          id: "lis-4",
+          date: "4/30(금)",
+          title: "자유/휴양",
+          items: [
+            "카스카이스 해변 반나절 휴양(기차 40분)",
+            "LX 팩토리 또는 시내 쇼핑",
+            "타임아웃 마켓 저녁"
+          ],
+          tag: ""
+        }
+      ],
+      hotels: [
+        { name: "Memmo Alfama", note: "언덕 루프탑 인피니티뷰/예약 1순위" },
+        { name: "Bairro Alto Hotel", note: "시내 중심/루프탑 바" }
+      ],
+      nextRoute: "5/1(토) 리스본→포르투 Alfa Pendular(약 2시간50분)"
+    },
+    opo: {
+      id: "opo",
+      title: "포르투",
+      dates: "5/1(토)~5/2(일)",
+      tagline: "여정의 마지막 항구도시 / 5/2 밤 출국이라 짐 보관 후 알차게 활용",
+      color: "var(--opo)",
+      days: [
+        {
+          id: "opo-1",
+          date: "5/1(토)",
+          title: "히베이라/포트와인",
+          items: [
+            "히베이라 지구 강변 산책/동 루이스 1세 다리 전경",
+            "빌라 노바 드 가이아 포트와인 셀러 투어",
+            "프란세지냐 저녁(Café Santiago 등)"
+          ],
+          tag: "맛집 프란세지냐"
+        },
+        {
+          id: "opo-2",
+          date: "5/2(일)",
+          title: "마지막 날/출국",
+          items: [
+            "리브라리아 렐루 서점(온라인 예약 필수)",
+            "클레리구스 탑/카페 마제스틱 브런치",
+            "짐 보관 후 마지막 쇼핑",
+            "공항 이동/22:30 OPO 출발(2시간 전 도착 권장)"
+          ],
+          tag: ""
+        }
+      ],
+      hotels: [
+        { name: "The Yeatman", note: "가이아 언덕 와인 테마 5성급/최고 인기" },
+        { name: "PortoBay Flores", note: "구시가 중심/가성비 부티크" }
+      ],
+      nextRoute: "지하철 E선 시내~공항 약 30~40분"
+    }
+  },
+  budget: {
+    title: "예상 예산 (2인/14박15일/국제선 제외)",
+    note: "시즌/환율/호텔 등급에 따라 변동 큼 · 국제선 항공권(KE) 별도",
+    items: [
+      { id: "b1", category: "숙박", desc: "1박 평균 25~35만원×14박", amount: "350~480만" },
+      { id: "b2", category: "식비", desc: "1일 8~13만원×15일", amount: "150~190만" },
+      { id: "b3", category: "도시간 이동", desc: "항공/열차/버스 전 구간", amount: "45~60만" },
+      { id: "b4", category: "입장료/투어", desc: "알함브라·왕궁·플라멩코·와이너리 등", amount: "40~60만" },
+      { id: "b5", category: "시내교통/기타", desc: "지하철·택시·팁·예비비", amount: "50~70만" }
+    ],
+    totalText: "635~860만원"
+  },
+  review: {
+    title: "장단점",
+    goods: [
+      "가장 대중적/검증된 만족도 1위 코스",
+      "4월말~5월초 온화한 기후(12~24℃)/적당한 인파",
+      "가우디·이슬람 유산·파두 음악까지 압축",
+      "도시별 1~4박, 루즈하지 않은 밀도"
+    ],
+    bads: [
+      "5개 도시/이동 4회, 캐리어 이동 잦음",
+      "세비야→리스본 직행열차 없이 버스 6시간",
+      "인기 명소 사전예약 사실상 필수",
+      "매일 체크인/아웃 많아 완전 휴양은 어려움"
+    ]
+  },
+  notices: [
+    { id: "n1", tag: "예약", text: "알함브라 티켓 2~3개월 전 매진 흔함/항공권 확정 즉시 예약" },
+    { id: "n2", tag: "축제", text: "4월말 세비야 '페리아 데 아브릴'과 겹치면 호텔가 급등/사전 확인" },
+    { id: "n3", tag: "시차", text: "포르투갈이 스페인보다 1시간 느림/이동 시간표 재확인" },
+    { id: "n4", tag: "영업시간", text: "스페인 소도시 오후 2~4시 시에스타로 상점 휴무 많음" },
+    { id: "n5", tag: "소매치기", text: "람블라스 거리/사그라다 파밀리아 주변/대중교통 소지품 주의" },
+    { id: "n6", tag: "국경 이동", text: "세비야~리스본 국제버스 탑승 시 여권 지참" },
+    { id: "n7", tag: "마지막 날", text: "포르투 22:30 출발/얼리 체크아웃 후 짐 보관 서비스 활용" }
+  ],
+  checklist: [
+    {
+      id: "cl-cat-1",
+      category: "여권 & 서류 & 금융",
+      items: [
+        { id: "c1", text: "여권 원본 (유효기간 6개월 이상 남았는지 확인)", checked: true },
+        { id: "c2", text: "여권 사본 2매 및 여권용 증명사진 2장 (분실 대비)", checked: false },
+        { id: "c3", text: "트래블로그 / 트래블월렛 카드 및 비상용 해외결제 신용카드", checked: true },
+        { id: "c4", text: "비상용 유로 현금 (50~100유로 소액권 위주)", checked: false },
+        { id: "c5", text: "해외여행자보험 가입 증명서 (영문 출력본)", checked: true }
+      ]
+    },
+    {
+      id: "cl-cat-2",
+      category: "사전 필수 예약 티켓 (매진 주의)",
+      items: [
+        { id: "c6", text: "그라나다 알함브라 나스르 궁전 입장권 (방문 2~3달 전 예매)", checked: true },
+        { id: "c7", text: "바르셀로나 사그라다 파밀리아 타워/입장권 티켓", checked: true },
+        { id: "c8", text: "바르셀로나 구엘 공원 예약 티켓", checked: false },
+        { id: "c9", text: "세비야 레알 알카사르 & 플라멩코(Los Gallos)", checked: false },
+        { id: "c10", text: "포르투 렐루 서점(Livraria Lello) 온라인 바우처", checked: false },
+        { id: "c11", text: "세비야→리스본 ALSA 국제버스 좌석 티켓", checked: true }
+      ]
+    },
+    {
+      id: "cl-cat-3",
+      category: "소매치기 방지 & 전자기기",
+      items: [
+        { id: "c12", text: "스마트폰 도난방지 스프링 스트랩 / 핑거링", checked: true },
+        { id: "c13", text: "옷 안에 차는 여행용 슬림 복대 or 안전 크로스백", checked: false },
+        { id: "c14", text: "유럽형 멀티 플러그 어댑터 및 대용량 보조배터리", checked: true },
+        { id: "c15", text: "유심 / e-SIM 등록 확인 (스페인+포르투갈 데이터 로밍)", checked: true },
+        { id: "c16", text: "소형 자전거 와이어 자물쇠 (기차 짐칸 캐리어 결속용)", checked: false }
+      ]
+    },
+    {
+      id: "cl-cat-4",
+      category: "의류 & 상비약 & 위생",
+      items: [
+        { id: "c17", text: "많이 걸어도 편한 워킹화 / 운동화 2켤레 (유럽 돌바닥 대비)", checked: true },
+        { id: "c18", text: "일교차 대비 가벼운 외투 / 가디건 및 선글라스", checked: false },
+        { id: "c19", text: "종합감기약, 소화제, 지사제, 타이레놀, 방수 밴드", checked: false },
+        { id: "c20", text: "기내용 슬리퍼 및 장시간 비행 압박스타킹", checked: false }
+      ]
+    }
+  ]
+};
