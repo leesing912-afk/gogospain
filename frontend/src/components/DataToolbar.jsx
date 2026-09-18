@@ -50,17 +50,17 @@ export default function DataToolbar({ planData, onUpdatePlan, onResetPlan, statu
 
       <div className="dt-grid">
         <button type="button" className="dt-btn dt-json" onClick={handleExportJSON}>
-          <Download size={18} />
+          <Download size={12} />
           <span>JSON 저장</span>
         </button>
 
         <button type="button" className="dt-btn dt-txt" onClick={handleExportTXT}>
-          <FileText size={18} />
+          <FileText size={12} />
           <span>텍스트 저장</span>
         </button>
 
         <label className="dt-btn dt-upload">
-          <Upload size={18} />
+          <Upload size={12} />
           <span>파일 불러오기</span>
           <input
             ref={fileInputRef}
@@ -72,7 +72,7 @@ export default function DataToolbar({ planData, onUpdatePlan, onResetPlan, statu
         </label>
 
         <button type="button" className="dt-btn dt-reset" onClick={handleReset}>
-          <RotateCcw size={18} />
+          <RotateCcw size={12} />
           <span>초기화</span>
         </button>
       </div>

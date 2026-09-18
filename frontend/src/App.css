@@ -1043,8 +1043,16 @@ table.budget tr.total td {
   color: var(--ink);
 }
 
+/* ─── SECTION SPACING ─────────────────────────── */
+.tab-content-area { margin-bottom: 36px; }
+
 /* ─── INFO CARDS (예산/장단점/주의사항/체크리스트) ─── */
-.info-cards-section { margin-bottom: 14px; }
+.info-cards-section {
+  margin-top: 4px;
+  margin-bottom: 32px;
+  padding-top: 22px;
+  border-top: 2px solid var(--line);
+}
 .info-cards-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -1217,41 +1225,41 @@ footer.app-footer {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
+  gap: 10px;
   text-align: center;
-  padding-top: 24px;
+  padding-top: 18px;
+  margin-top: 8px;
   border-top: 1px solid var(--line);
-  margin-top: 24px;
+  opacity: 0.85;
 }
 /* ─── FOOTER DATA TOOLBAR ─────────────────────── */
 .data-toolbar {
   width: 100%;
+  max-width: 420px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 14px;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 16px 18px 18px;
-  box-shadow: 0 4px 16px rgba(22, 50, 74, 0.06);
+  gap: 8px;
+  background: transparent;
+  border: none;
+  padding: 0;
 }
 
 .dt-status {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 6px 14px;
+  gap: 5px;
+  padding: 3px 10px;
   border-radius: 100px;
-  font-size: 0.78rem;
+  font-size: 0.66rem;
   font-weight: 600;
   background: var(--surface-2);
   color: var(--ink-soft);
   border: 1px solid var(--line);
 }
 .dt-status-dot {
-  width: 8px;
-  height: 8px;
+  width: 5px;
+  height: 5px;
   border-radius: 50%;
   background: var(--ink-soft);
   flex-shrink: 0;
@@ -1278,35 +1286,31 @@ footer.app-footer {
   width: 100%;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
-}
-@media (max-width: 560px) {
-  .dt-grid { grid-template-columns: repeat(2, 1fr); }
+  gap: 5px;
 }
 
 .dt-btn {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
-  gap: 6px;
-  padding: 12px 8px;
-  min-height: 74px;
-  border-radius: 12px;
+  gap: 4px;
+  padding: 5px 4px;
+  min-height: 0;
+  border-radius: 7px;
   border: 1px solid var(--line);
-  background: var(--surface-2);
-  color: var(--ink);
-  font-family: var(--display);
-  font-size: 0.76rem;
-  font-weight: 700;
+  background: var(--surface);
+  color: var(--ink-soft);
+  font-family: var(--body);
+  font-size: 0.62rem;
+  font-weight: 600;
   cursor: pointer;
   text-align: center;
-  transition: transform 0.14s, box-shadow 0.14s, border-color 0.14s, color 0.14s, background 0.14s;
+  transition: border-color 0.14s, color 0.14s;
 }
-.dt-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 14px rgba(22, 50, 74, 0.12);
-}
+.dt-btn svg { width: 12px; height: 12px; }
+.dt-btn span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.dt-btn:hover { color: var(--ink); }
 .dt-btn.dt-json:hover { color: var(--accent); border-color: var(--accent); }
 .dt-btn.dt-txt:hover { color: var(--gold); border-color: var(--gold); }
 .dt-btn.dt-upload:hover { color: var(--lis); border-color: var(--lis); }
