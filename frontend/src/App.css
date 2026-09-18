@@ -327,26 +327,6 @@ table.ov td.dot { width: 12px; }
   z-index: 20;
   background: var(--bg);
   padding-block: 8px 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-.tabbar-group {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-.tabbar-group-label {
-  font-family: var(--display);
-  font-size: 0.66rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  color: var(--ink-soft);
-  padding-left: 4px;
-}
-.tabbar-group-info {
-  padding-top: 6px;
-  border-top: 1px dashed var(--line);
 }
 .tabbar-inner {
   display: flex;
@@ -391,25 +371,36 @@ section.city {
   border: 1px solid var(--line);
   border-left: 5px solid var(--c, var(--accent));
   border-radius: var(--radius);
-  padding: 18px 20px 20px;
+  overflow: hidden;
   margin-bottom: 14px;
 }
-.city-head {
+
+/* 도시 전체를 감싸는 한 줄짜리 닫힌 토글 */
+.city-summary-toggle {
+  width: 100%;
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 6px;
+  padding: 16px 20px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--body);
 }
-.city-title-wrapper {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
+.city-summary-toggle:hover { background: color-mix(in srgb, var(--c, var(--accent)) 6%, transparent); }
+.city-chev {
+  color: var(--c, var(--accent));
+  flex-shrink: 0;
+  transition: transform 0.2s;
 }
-.city-head h2 {
-  font-size: 1.3rem;
+.city-chev.open { transform: rotate(180deg); }
+.city-summary-title {
+  font-family: var(--display);
+  font-size: 1.15rem;
   font-weight: 800;
   color: var(--c, var(--accent));
+  white-space: nowrap;
 }
 .stay-badge {
   font-family: var(--display);
@@ -419,11 +410,17 @@ section.city {
   background: color-mix(in srgb, var(--c, var(--accent)) 14%, transparent);
   padding: 4px 11px;
   border-radius: 100px;
+  white-space: nowrap;
+}
+
+.city-panel-body {
+  padding: 0 20px 20px;
+  border-top: 1px solid var(--line);
 }
 .city-tagline {
   color: var(--ink-soft);
   font-size: 0.86rem;
-  margin-block: 4px 14px;
+  margin-block: 14px 14px;
 }
 
 /* ─── DAY CARDS (토글 닫힌 디폴트) ──────────── */
@@ -432,28 +429,6 @@ section.city {
   flex-direction: column;
   gap: 7px;
   margin-bottom: 12px;
-}
-
-.btn-toggle-all {
-  align-self: flex-end;
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  padding: 5px 11px;
-  border-radius: 100px;
-  border: 1px solid var(--line);
-  background: var(--surface);
-  color: var(--ink-soft);
-  font-family: var(--display);
-  font-size: 0.72rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.15s;
-  margin-bottom: 2px;
-}
-.btn-toggle-all:hover {
-  color: var(--c, var(--accent));
-  border-color: var(--c, var(--accent));
 }
 
 .day-card {
@@ -1068,6 +1043,47 @@ table.budget tr.total td {
   color: var(--ink);
 }
 
+/* ─── INFO CARDS (예산/장단점/주의사항/체크리스트) ─── */
+.info-cards-section { margin-bottom: 14px; }
+.info-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+@media (max-width: 560px) {
+  .info-cards-grid { grid-template-columns: repeat(2, 1fr); }
+}
+.info-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 16px 10px;
+  min-height: 92px;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--c, var(--accent));
+  cursor: pointer;
+  transition: transform 0.14s, box-shadow 0.14s, border-color 0.14s;
+}
+.info-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(22, 50, 74, 0.1);
+  border-color: var(--c, var(--accent));
+}
+.info-card-label {
+  font-family: var(--display);
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--ink);
+}
+.info-card-sub {
+  font-size: 0.7rem;
+  color: var(--ink-soft);
+}
+
 /* ─── MODALS ─────────────────────────────────── */
 .modal-overlay {
   position: fixed;
@@ -1091,6 +1107,14 @@ table.budget tr.total td {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   padding: 20px 24px;
 }
+.modal-content-lg { max-width: 720px; }
+.modal-content-lg .card {
+  border: none;
+  padding: 0;
+  margin-bottom: 0;
+  border-radius: 0;
+}
+.modal-content-lg h2.h-plain { display: none; }
 .modal-header {
   display: flex;
   align-items: center;

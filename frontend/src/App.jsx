@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Wallet, Scale, AlertTriangle, ListChecks, X } from 'lucide-react';
 import HeaderPass from './components/HeaderPass';
 import OverviewTable from './components/OverviewTable';
 import TabBar from './components/TabBar';
@@ -12,10 +13,20 @@ import { initPlanSubscription, savePlanData, resetToDefault } from './services/a
 import { initialPlanData } from './data/defaultPlan';
 import './App.css';
 
+const CITY_TAB_IDS = ['bcn', 'gra', 'sev', 'lis', 'opo'];
+
+const INFO_CARDS = [
+  { id: 'budget', label: '예산', sub: '비용 정리', icon: Wallet, color: 'var(--accent)' },
+  { id: 'review', label: '장단점', sub: '요약', icon: Scale, color: 'var(--accent)' },
+  { id: 'notice', label: '주의사항', sub: '체크포인트', icon: AlertTriangle, color: 'var(--warn)' },
+  { id: 'checklist', label: '체크리스트', sub: '준비물 점검', icon: ListChecks, color: 'var(--good)' }
+];
+
 export default function App() {
   const [planData, setPlanData] = useState(initialPlanData);
   const [activeTab, setActiveTab] = useState('bcn');
   const [statusMessage, setStatusMessage] = useState('');
+  const [infoModal, setInfoModal] = useState(null); // 'budget' | 'review' | 'notice' | 'checklist' | null
 
   useEffect(() => {
     const unsubscribe = initPlanSubscription(
@@ -70,7 +81,7 @@ export default function App() {
       />
 
       <TabBar
-        tabs={planData.tabs}
+        tabs={planData.tabs.filter((t) => CITY_TAB_IDS.includes(t.id))}
         activeTab={activeTab}
         onSelectTab={handleSelectTab}
       />
@@ -85,37 +96,66 @@ export default function App() {
             }}
           />
         )}
-
-        {activeTab === 'budget' && (
-          <BudgetPanel
-            budget={planData.budget}
-            onUpdateBudget={(updatedBudget) => handleUpdatePlan({ ...planData, budget: updatedBudget })}
-          />
-        )}
-
-        {activeTab === 'review' && (
-          <ReviewPanel
-            review={planData.review}
-            onUpdateReview={(updatedReview) => handleUpdatePlan({ ...planData, review: updatedReview })}
-          />
-        )}
-
-        {activeTab === 'notice' && (
-          <NoticePanel
-            notices={planData.notices}
-            onUpdateNotices={(updatedNotices) => handleUpdatePlan({ ...planData, notices: updatedNotices })}
-          />
-        )}
-
-        {activeTab === 'checklist' && (
-          <ChecklistPanel
-            checklist={planData.checklist}
-            onUpdateChecklist={(updatedChecklist) =>
-              handleUpdatePlan({ ...planData, checklist: updatedChecklist })
-            }
-          />
-        )}
       </main>
+
+      {/* 여행 정보: 도시별 일정과 분리된 카드 → 클릭 시 모달로 열림 */}
+      <section className="info-cards-section">
+        <div className="info-cards-grid">
+          {INFO_CARDS.map(({ id, label, sub, icon: Icon, color }) => (
+            <button
+              key={id}
+              type="button"
+              className="info-card"
+              style={{ '--c': color }}
+              onClick={() => setInfoModal(id)}
+            >
+              <Icon size={22} />
+              <span className="info-card-label">{label}</span>
+              <span className="info-card-sub">{sub}</span>
+            </button>
+          ))}
+        </div>
+      </section>
+
+      {infoModal && (
+        <div className="modal-overlay" onClick={() => setInfoModal(null)}>
+          <div className="modal-content modal-content-lg" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-header">
+              <h3>{INFO_CARDS.find((c) => c.id === infoModal)?.label}</h3>
+              <button type="button" className="close-btn" onClick={() => setInfoModal(null)}>
+                <X size={18} />
+              </button>
+            </div>
+
+            {infoModal === 'budget' && (
+              <BudgetPanel
+                budget={planData.budget}
+                onUpdateBudget={(updatedBudget) => handleUpdatePlan({ ...planData, budget: updatedBudget })}
+              />
+            )}
+            {infoModal === 'review' && (
+              <ReviewPanel
+                review={planData.review}
+                onUpdateReview={(updatedReview) => handleUpdatePlan({ ...planData, review: updatedReview })}
+              />
+            )}
+            {infoModal === 'notice' && (
+              <NoticePanel
+                notices={planData.notices}
+                onUpdateNotices={(updatedNotices) => handleUpdatePlan({ ...planData, notices: updatedNotices })}
+              />
+            )}
+            {infoModal === 'checklist' && (
+              <ChecklistPanel
+                checklist={planData.checklist}
+                onUpdateChecklist={(updatedChecklist) =>
+                  handleUpdatePlan({ ...planData, checklist: updatedChecklist })
+                }
+              />
+            )}
+          </div>
+        </div>
+      )}
 
       <footer className="app-footer">
         <DataToolbar

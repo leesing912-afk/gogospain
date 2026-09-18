@@ -1,26 +1,18 @@
 import React, { useState } from 'react';
-import { Plus, ChevronsDown, ChevronsUp } from 'lucide-react';
+import { Plus, ChevronDown } from 'lucide-react';
 import DayScheduleCard from './DayScheduleCard';
 import StayTransCard from './StayTransCard';
 
 export default function CityPanel({ city, onUpdateCity }) {
+  // 도시 패널 전체를 감싸는 한 줄 토글 (기본값: 닫힘)
+  const [isPanelOpen, setIsPanelOpen] = useState(false);
+
   // 일차별 펼침/닫힘 상태 (기본값: 전부 닫힘)
   const [openDays, setOpenDays] = useState({});
   const dayList = city.days || [];
-  const allOpen = dayList.length > 0 && dayList.every((d) => openDays[d.id]);
 
   const handleToggleDay = (dayId) => {
     setOpenDays((prev) => ({ ...prev, [dayId]: !prev[dayId] }));
-  };
-
-  const handleToggleAll = () => {
-    if (allOpen) {
-      setOpenDays({});
-    } else {
-      const next = {};
-      dayList.forEach((d) => { next[d.id] = true; });
-      setOpenDays(next);
-    }
   };
 
   // 일차별 업데이트
@@ -61,53 +53,54 @@ export default function CityPanel({ city, onUpdateCity }) {
 
   return (
     <section className="city" style={{ '--c': city.color || 'var(--accent)' }}>
-      <div className="city-head">
-        <div className="city-title-wrapper">
-          <h2>{city.title}</h2>
-          <span className="stay-badge">{city.dates}</span>
-        </div>
-      </div>
+      <button
+        type="button"
+        className="city-summary-toggle"
+        onClick={() => setIsPanelOpen((v) => !v)}
+        aria-expanded={isPanelOpen}
+      >
+        <ChevronDown size={18} className={`city-chev ${isPanelOpen ? 'open' : ''}`} />
+        <span className="city-summary-title">{city.title}</span>
+        <span className="stay-badge">{city.dates}</span>
+      </button>
 
-      <div className="city-tagline">{city.tagline}</div>
+      {isPanelOpen && (
+        <div className="city-panel-body">
+          <div className="city-tagline">{city.tagline}</div>
 
-      {/* 날짜별 일정 리스트 */}
-      <div className="days-container">
-        {dayList.length > 0 && (
-          <button type="button" className="btn-toggle-all" onClick={handleToggleAll}>
-            {allOpen ? <ChevronsUp size={14} /> : <ChevronsDown size={14} />}
-            <span>{allOpen ? '전체 접기' : '전체 펼치기'}</span>
-          </button>
-        )}
+          {/* 날짜별 일정 리스트 */}
+          <div className="days-container">
+            {dayList.map((day) => (
+              <DayScheduleCard
+                key={day.id}
+                day={day}
+                cityColor={city.color}
+                isOpen={!!openDays[day.id]}
+                onToggleOpen={() => handleToggleDay(day.id)}
+                onUpdateDay={handleUpdateDay}
+                onDeleteDay={handleDeleteDay}
+              />
+            ))}
 
-        {dayList.map((day) => (
-          <DayScheduleCard
-            key={day.id}
-            day={day}
+            <button
+              type="button"
+              className="btn-add-day-card"
+              onClick={handleAddNewDay}
+            >
+              <Plus size={16} /> <span>새로운 일차(Day) 추가</span>
+            </button>
+          </div>
+
+          {/* 숙소 & 다음 구간 */}
+          <StayTransCard
+            hotels={city.hotels}
+            nextRoute={city.nextRoute}
             cityColor={city.color}
-            isOpen={!!openDays[day.id]}
-            onToggleOpen={() => handleToggleDay(day.id)}
-            onUpdateDay={handleUpdateDay}
-            onDeleteDay={handleDeleteDay}
+            onUpdateHotels={handleUpdateHotels}
+            onUpdateNextRoute={handleUpdateNextRoute}
           />
-        ))}
-
-        <button
-          type="button"
-          className="btn-add-day-card"
-          onClick={handleAddNewDay}
-        >
-          <Plus size={16} /> <span>새로운 일차(Day) 추가</span>
-        </button>
-      </div>
-
-      {/* 숙소 & 다음 구간 */}
-      <StayTransCard
-        hotels={city.hotels}
-        nextRoute={city.nextRoute}
-        cityColor={city.color}
-        onUpdateHotels={handleUpdateHotels}
-        onUpdateNextRoute={handleUpdateNextRoute}
-      />
+        </div>
+      )}
     </section>
   );
 }
