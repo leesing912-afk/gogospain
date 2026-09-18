@@ -2,6 +2,19 @@ import React, { useState } from 'react';
 import { Edit2, Trash2, Plus, Check, X, ChevronDown } from 'lucide-react';
 import RichTextEditor from './RichTextEditor';
 
+// 항목 맨 앞의 "19:10~20:00" 또는 "19:10" 같은 시간 표기를 찾아
+// 컬러 스티커(칩)로 감싸고, 나머지 본문과 분리해 렌더링한다.
+const TIME_PREFIX_RE = /^(\d{1,2}:\d{2}(?:~\d{1,2}:\d{2})?)\s*(.*)$/s;
+
+function renderItemHtml(item) {
+  const match = item.match(TIME_PREFIX_RE);
+  if (match) {
+    const [, time, rest] = match;
+    return `<span class="time-chip">${time}</span><span class="item-text">${rest}</span>`;
+  }
+  return `<span class="item-text item-text-noicon">${item}</span>`;
+}
+
 export default function DayScheduleCard({ day, cityColor, onUpdateDay, onDeleteDay }) {
   const [isOpen, setIsOpen] = useState(false); // 기본값: 닫힘
   const [isEditingHeader, setIsEditingHeader] = useState(false);
@@ -142,7 +155,8 @@ export default function DayScheduleCard({ day, cityColor, onUpdateDay, onDeleteD
                 <li key={idx} className="schedule-item-row">
                   <div
                     className="item-content"
-                    dangerouslySetInnerHTML={{ __html: item }}
+                    style={{ '--c': cityColor || 'var(--accent)' }}
+                    dangerouslySetInnerHTML={{ __html: renderItemHtml(item) }}
                     onDoubleClick={() => setEditingItemIdx(idx)}
                     title="더블클릭하여 빠른 수정"
                   />

@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { Download, FileText, Upload, RotateCcw, CheckCircle2 } from 'lucide-react';
+import { Download, FileText, Upload, RotateCcw } from 'lucide-react';
 import { exportToJSON, exportToTXT, importFromJSONFile } from '../services/fileExport';
 
 export default function DataToolbar({ planData, onUpdatePlan, onResetPlan, statusMessage }) {
@@ -38,38 +38,29 @@ export default function DataToolbar({ planData, onUpdatePlan, onResetPlan, statu
     }
   };
 
+  const isConnected = /실시간 연결됨/.test(statusMessage || '');
+  const isConnecting = /연결\s*중/.test(statusMessage || '');
+
   return (
     <div className="data-toolbar">
-      <div className="toolbar-left">
-        <span className="live-status">
-          <CheckCircle2 size={14} className="status-icon" />
-          <span>{statusMessage || '브라우저 & 파일에 실시간 자동 저장 중'}</span>
-        </span>
+      <div className={`dt-status ${isConnected ? 'is-live' : isConnecting ? 'is-connecting' : 'is-local'}`}>
+        <span className="dt-status-dot" />
+        <span className="dt-status-text">{statusMessage || '브라우저 & 파일에 실시간 자동 저장 중'}</span>
       </div>
 
-      <div className="toolbar-right">
-        <button
-          type="button"
-          className="btn-pill json"
-          onClick={handleExportJSON}
-          title="현재 편집한 모든 내용을 JSON 파일로 저장합니다"
-        >
-          <Download size={14} />
-          <span>JSON 파일 저장</span>
+      <div className="dt-grid">
+        <button type="button" className="dt-btn dt-json" onClick={handleExportJSON}>
+          <Download size={18} />
+          <span>JSON 저장</span>
         </button>
 
-        <button
-          type="button"
-          className="btn-pill txt"
-          onClick={handleExportTXT}
-          title="메모장이나 카톡에 붙여넣기 좋은 텍스트 파일로 저장합니다"
-        >
-          <FileText size={14} />
-          <span>메모장(TXT) 저장</span>
+        <button type="button" className="dt-btn dt-txt" onClick={handleExportTXT}>
+          <FileText size={18} />
+          <span>텍스트 저장</span>
         </button>
 
-        <label className="btn-pill upload" title="저장해둔 JSON 파일을 불러와 복원합니다">
-          <Upload size={14} />
+        <label className="dt-btn dt-upload">
+          <Upload size={18} />
           <span>파일 불러오기</span>
           <input
             ref={fileInputRef}
@@ -80,13 +71,8 @@ export default function DataToolbar({ planData, onUpdatePlan, onResetPlan, statu
           />
         </label>
 
-        <button
-          type="button"
-          className="btn-pill reset"
-          onClick={handleReset}
-          title="처음 기본 일정으로 복원합니다"
-        >
-          <RotateCcw size={14} />
+        <button type="button" className="dt-btn dt-reset" onClick={handleReset}>
+          <RotateCcw size={18} />
           <span>초기화</span>
         </button>
       </div>

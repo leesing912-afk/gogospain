@@ -534,16 +534,42 @@ section.city {
 
 .item-content {
   flex: 1;
-  line-height: 1.45;
+  line-height: 1.5;
   font-size: 0.86rem;
   cursor: text;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px;
 }
-.item-content::before {
-  content: "•";
-  color: var(--accent);
-  margin-right: 6px;
-  font-weight: bold;
+.time-chip {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 0.76rem;
+  letter-spacing: 0.01em;
+  color: var(--c, var(--accent));
+  background: color-mix(in srgb, var(--c, var(--accent)) 16%, transparent);
+  border: 1px solid color-mix(in srgb, var(--c, var(--accent)) 30%, transparent);
+  border-radius: 7px;
+  padding: 2px 8px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
+.item-text {
+  flex: 1;
+  min-width: 140px;
+  color: var(--ink);
+}
+.item-text-noicon {
+  padding-left: 2px;
+  color: var(--ink-soft);
+  font-style: italic;
+  font-size: 0.82rem;
+}
+.item-text strong { color: var(--c, var(--accent)); }
 
 .item-actions {
   display: inline-flex;
@@ -1115,11 +1141,108 @@ table.budget tr.total td {
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
-footer {
+footer.app-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
   text-align: center;
-  color: var(--ink-soft);
-  font-size: 0.78rem;
-  padding-top: 20px;
+  padding-top: 24px;
   border-top: 1px solid var(--line);
   margin-top: 24px;
 }
+.footer-tagline {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.78rem;
+}
+
+/* ─── FOOTER DATA TOOLBAR ─────────────────────── */
+.data-toolbar {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 16px 18px 18px;
+  box-shadow: 0 4px 16px rgba(22, 50, 74, 0.06);
+}
+
+.dt-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 100px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  background: var(--surface-2);
+  color: var(--ink-soft);
+  border: 1px solid var(--line);
+}
+.dt-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--ink-soft);
+  flex-shrink: 0;
+}
+.dt-status.is-connecting .dt-status-dot {
+  background: var(--gold);
+  animation: dt-pulse 1s ease-in-out infinite;
+}
+.dt-status.is-live {
+  color: var(--good);
+  border-color: color-mix(in srgb, var(--good) 35%, var(--line));
+  background: color-mix(in srgb, var(--good) 10%, var(--surface-2));
+}
+.dt-status.is-live .dt-status-dot {
+  background: var(--good);
+  animation: dt-pulse 1.6s ease-in-out infinite;
+}
+@keyframes dt-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, currentColor 45%, transparent); }
+  50% { box-shadow: 0 0 0 5px transparent; }
+}
+
+.dt-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+@media (max-width: 560px) {
+  .dt-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+.dt-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 12px 8px;
+  min-height: 74px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: var(--surface-2);
+  color: var(--ink);
+  font-family: var(--display);
+  font-size: 0.76rem;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: center;
+  transition: transform 0.14s, box-shadow 0.14s, border-color 0.14s, color 0.14s, background 0.14s;
+}
+.dt-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(22, 50, 74, 0.12);
+}
+.dt-btn.dt-json:hover { color: var(--accent); border-color: var(--accent); }
+.dt-btn.dt-txt:hover { color: var(--gold); border-color: var(--gold); }
+.dt-btn.dt-upload:hover { color: var(--lis); border-color: var(--lis); }
+.dt-btn.dt-reset { color: var(--warn); }
+.dt-btn.dt-reset:hover { background: color-mix(in srgb, var(--warn) 10%, var(--surface-2)); border-color: var(--warn); }
