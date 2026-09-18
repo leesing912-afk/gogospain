@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Edit2, Trash2, Plus, Check, X, Building2, Send } from 'lucide-react';
 
-export default function StayTransCard({ hotels, nextRoute, cityColor, onUpdateHotels, onUpdateNextRoute }) {
+export default function StayTransCard({ hotels, nextRoute, cityColor, stayDates, onUpdateHotels, onUpdateNextRoute }) {
   const [editingHotelIdx, setEditingHotelIdx] = useState(null);
   const [hotelForm, setHotelForm] = useState({ name: '', note: '' });
   const [isAddingHotel, setIsAddingHotel] = useState(false);
@@ -63,6 +63,9 @@ export default function StayTransCard({ hotels, nextRoute, cityColor, onUpdateHo
                 <Plus size={12} /> 숙소 추가
               </button>
             </div>
+            {stayDates && (
+              <p className="stay-duration-note">🛏️ {stayDates} 동안 한 숙소에서 연박 추천</p>
+            )}
 
             {isAddingHotel && (
               <div className="add-subform">

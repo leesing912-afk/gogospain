@@ -402,8 +402,8 @@ section.city {
   margin-bottom: 14px;
 }
 
-/* 도시 전체를 감싸는 한 줄짜리 닫힌 토글 */
-.city-summary-toggle {
+/* 도시 상단 고정 헤더 (클릭 불필요, 항상 표시) */
+.city-static-header {
   width: 100%;
   display: flex;
   align-items: center;
@@ -411,18 +411,8 @@ section.city {
   flex-wrap: wrap;
   padding: 16px 20px;
   background: transparent;
-  border: none;
-  cursor: pointer;
-  text-align: left;
   font-family: var(--body);
 }
-.city-summary-toggle:hover { background: color-mix(in srgb, var(--c, var(--accent)) 6%, transparent); }
-.city-chev {
-  color: var(--c, var(--accent));
-  flex-shrink: 0;
-  transition: transform 0.2s;
-}
-.city-chev.open { transform: rotate(180deg); }
 .city-summary-title {
   font-family: var(--display);
   font-size: 1.15rem;
@@ -821,6 +811,16 @@ section.city {
   gap: 4px;
 }
 .box ul { margin: 0; padding: 0; list-style: none; font-size: 0.84rem; }
+.stay-duration-note {
+  margin: 0 0 10px;
+  padding: 6px 9px;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--c, var(--accent)) 12%, transparent);
+  color: var(--c, var(--accent));
+  font-size: 0.76rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
 
 .sub-item-row {
   display: flex;
