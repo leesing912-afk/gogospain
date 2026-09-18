@@ -7,6 +7,7 @@ import BudgetPanel from './components/BudgetPanel';
 import ReviewPanel from './components/ReviewPanel';
 import NoticePanel from './components/NoticePanel';
 import ChecklistPanel from './components/ChecklistPanel';
+import DataToolbar from './components/DataToolbar';
 import { initPlanSubscription, savePlanData, resetToDefault } from './services/api';
 import { initialPlanData } from './data/defaultPlan';
 import './App.css';
@@ -14,11 +15,12 @@ import './App.css';
 export default function App() {
   const [planData, setPlanData] = useState(initialPlanData);
   const [activeTab, setActiveTab] = useState('bcn');
+  const [statusMessage, setStatusMessage] = useState('');
 
   useEffect(() => {
     const unsubscribe = initPlanSubscription(
       (updatedData) => setPlanData(updatedData),
-      () => {}
+      (msg) => setStatusMessage(msg)
     );
 
     try {
@@ -37,6 +39,11 @@ export default function App() {
   const handleUpdatePlan = (updatedPlan) => {
     setPlanData(updatedPlan);
     savePlanData(updatedPlan);
+  };
+
+  const handleResetPlan = async () => {
+    const restored = await resetToDefault();
+    setPlanData(restored);
   };
 
   if (!planData) {
@@ -60,6 +67,13 @@ export default function App() {
       <OverviewTable
         overview={planData.overview}
         onUpdate={(updatedOverview) => handleUpdatePlan({ ...planData, overview: updatedOverview })}
+      />
+
+      <DataToolbar
+        planData={planData}
+        onUpdatePlan={handleUpdatePlan}
+        onResetPlan={handleResetPlan}
+        statusMessage={statusMessage}
       />
 
       <TabBar
