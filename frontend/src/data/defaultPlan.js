@@ -1,6 +1,7 @@
 export const initialPlanData = {
   headerPass: {
     title: "바르셀로나→포르투 15일 이베리아 신혼여행",
+    tripStartDate: "2027-04-18",
     inCity: "IN 바르셀로나",
     inDate: "4/18(일)",
     inFlight: "KE 11:50 ICN→19:10 BCN",

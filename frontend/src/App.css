@@ -82,15 +82,35 @@ a { color: var(--accent); }
 
 .pass-title-row {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 12px;
+  flex-wrap: wrap;
+}
+.pass-title-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  min-width: 0;
 }
 
 .pass-top h1 {
   font-size: clamp(1.2rem, 3.8vw, 1.7rem);
   font-weight: 800;
   color: var(--ink);
+}
+
+.dday-badge {
+  flex-shrink: 0;
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 0.78rem;
+  color: #fff;
+  background: var(--gold);
+  padding: 4px 10px;
+  border-radius: 100px;
+  white-space: nowrap;
 }
 
 .btn-edit-pass {
@@ -169,30 +189,37 @@ h2.h-plain {
   gap: 6px;
 }
 
-details.overview {
+/* ─── TOP-LEVEL SECTION TOGGLES (요약일정/세부일정/기타사항) ─── */
+details.top-section {
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  margin-bottom: 14px;
-  overflow: hidden;
+  margin-bottom: 16px;
   box-shadow: 0 4px 16px rgba(31, 111, 178, 0.06);
 }
-details.overview > summary {
+details.top-section > summary {
   list-style: none;
   cursor: pointer;
-  padding: 16px 20px;
+  padding: 18px 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 12px;
+}
+details.top-section > summary::-webkit-details-marker { display: none; }
+.top-section-title {
   font-family: var(--display);
   font-weight: 800;
-  font-size: 1.05rem;
+  font-size: 1.22rem;
+  color: var(--ink);
 }
-details.overview > summary::-webkit-details-marker { display: none; }
+.top-section-body { padding: 0 20px 20px; }
+
 .chev {
   font-size: 0.8rem;
   color: var(--accent);
   transition: transform 0.2s;
+  flex-shrink: 0;
 }
 .chev.open,
 details[open] > summary .chev { transform: rotate(180deg); }
@@ -325,7 +352,7 @@ table.ov td.dot { width: 12px; }
   position: sticky;
   top: env(safe-area-inset-top, 0px);
   z-index: 20;
-  background: var(--bg);
+  background: var(--surface);
   padding-block: 8px 12px;
 }
 .tabbar-inner {
@@ -381,6 +408,7 @@ section.city {
   display: flex;
   align-items: center;
   gap: 10px;
+  flex-wrap: wrap;
   padding: 16px 20px;
   background: transparent;
   border: none;
@@ -400,7 +428,6 @@ section.city {
   font-size: 1.15rem;
   font-weight: 800;
   color: var(--c, var(--accent));
-  white-space: nowrap;
 }
 .stay-badge {
   font-family: var(--display);
@@ -484,6 +511,7 @@ section.city {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  min-width: 0;
 }
 .tag {
   display: inline-block;
@@ -1043,16 +1071,7 @@ table.budget tr.total td {
   color: var(--ink);
 }
 
-/* ─── SECTION SPACING ─────────────────────────── */
-.tab-content-area { margin-bottom: 36px; }
-
 /* ─── INFO CARDS (예산/장단점/주의사항/체크리스트) ─── */
-.info-cards-section {
-  margin-top: 4px;
-  margin-bottom: 32px;
-  padding-top: 22px;
-  border-top: 2px solid var(--line);
-}
 .info-cards-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -1147,6 +1166,9 @@ table.budget tr.total td {
   font-size: 0.88rem;
 }
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+@media (max-width: 480px) {
+  .form-row { grid-template-columns: 1fr; }
+}
 .form-actions { display: flex; gap: 6px; justify-content: flex-end; margin-top: 4px; }
 .modal-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 10px; }
 
@@ -1249,13 +1271,15 @@ footer.app-footer {
   display: inline-flex;
   align-items: center;
   gap: 5px;
+  max-width: 100%;
   padding: 3px 10px;
-  border-radius: 100px;
+  border-radius: 10px;
   font-size: 0.66rem;
   font-weight: 600;
   background: var(--surface-2);
   color: var(--ink-soft);
   border: 1px solid var(--line);
+  text-align: center;
 }
 .dt-status-dot {
   width: 5px;
@@ -1287,6 +1311,9 @@ footer.app-footer {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 5px;
+}
+@media (max-width: 380px) {
+  .dt-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 .dt-btn {

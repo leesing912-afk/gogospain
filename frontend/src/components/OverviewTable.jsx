@@ -46,9 +46,9 @@ export default function OverviewTable({ overview, onUpdate }) {
   };
 
   return (
-    <details className="overview" open={isOpen} onToggle={(e) => setIsOpen(e.target.open)}>
+    <details className="overview top-section" open={isOpen} onToggle={(e) => setIsOpen(e.target.open)}>
       <summary>
-        <span>🗺️ 한눈에 보기 (전체 동선 요약)</span>
+        <span className="top-section-title">요약일정</span>
         <span className={`chev ${isOpen ? 'open' : ''}`}>▾</span>
       </summary>
 

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Wallet, Scale, AlertTriangle, ListChecks, X } from 'lucide-react';
 import HeaderPass from './components/HeaderPass';
 import OverviewTable from './components/OverviewTable';
+import TopSection from './components/TopSection';
 import TabBar from './components/TabBar';
 import CityPanel from './components/CityPanel';
 import BudgetPanel from './components/BudgetPanel';
@@ -80,42 +81,46 @@ export default function App() {
         onUpdate={(updatedOverview) => handleUpdatePlan({ ...planData, overview: updatedOverview })}
       />
 
-      <TabBar
-        tabs={planData.tabs.filter((t) => CITY_TAB_IDS.includes(t.id))}
-        activeTab={activeTab}
-        onSelectTab={handleSelectTab}
-      />
+      <TopSection title="세부일정">
+        <TabBar
+          tabs={planData.tabs.filter((t) => CITY_TAB_IDS.includes(t.id))}
+          activeTab={activeTab}
+          onSelectTab={handleSelectTab}
+        />
 
-      <main className="tab-content-area">
-        {currentCity && (
-          <CityPanel
-            city={currentCity}
-            onUpdateCity={(updatedCity) => {
-              const updatedCities = { ...planData.cities, [activeTab]: updatedCity };
-              handleUpdatePlan({ ...planData, cities: updatedCities });
-            }}
-          />
-        )}
-      </main>
+        <main className="tab-content-area">
+          {currentCity && (
+            <CityPanel
+              city={currentCity}
+              onUpdateCity={(updatedCity) => {
+                const updatedCities = { ...planData.cities, [activeTab]: updatedCity };
+                handleUpdatePlan({ ...planData, cities: updatedCities });
+              }}
+            />
+          )}
+        </main>
+      </TopSection>
 
       {/* 여행 정보: 도시별 일정과 분리된 카드 → 클릭 시 모달로 열림 */}
-      <section className="info-cards-section">
-        <div className="info-cards-grid">
-          {INFO_CARDS.map(({ id, label, sub, icon: Icon, color }) => (
-            <button
-              key={id}
-              type="button"
-              className="info-card"
-              style={{ '--c': color }}
-              onClick={() => setInfoModal(id)}
-            >
-              <Icon size={22} />
-              <span className="info-card-label">{label}</span>
-              <span className="info-card-sub">{sub}</span>
-            </button>
-          ))}
-        </div>
-      </section>
+      <TopSection title="기타사항">
+        <section className="info-cards-section">
+          <div className="info-cards-grid">
+            {INFO_CARDS.map(({ id, label, sub, icon: Icon, color }) => (
+              <button
+                key={id}
+                type="button"
+                className="info-card"
+                style={{ '--c': color }}
+                onClick={() => setInfoModal(id)}
+              >
+                <Icon size={22} />
+                <span className="info-card-label">{label}</span>
+                <span className="info-card-sub">{sub}</span>
+              </button>
+            ))}
+          </div>
+        </section>
+      </TopSection>
 
       {infoModal && (
         <div className="modal-overlay" onClick={() => setInfoModal(null)}>

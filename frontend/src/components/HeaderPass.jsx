@@ -1,9 +1,23 @@
 import React, { useState } from 'react';
 import { Edit2, Plane, Calendar, Compass, Check, X } from 'lucide-react';
 
+// 오늘 날짜 기준 D-day 계산 (자정 기준으로 날짜만 비교)
+function calcDday(dateStr) {
+  if (!dateStr) return null;
+  const target = new Date(`${dateStr}T00:00:00`);
+  if (Number.isNaN(target.getTime())) return null;
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const diff = Math.round((target - today) / 86400000);
+  if (diff > 0) return `D-${diff}`;
+  if (diff === 0) return 'D-DAY';
+  return `D+${Math.abs(diff)}`;
+}
+
 export default function HeaderPass({ headerPass, onUpdate }) {
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({ ...headerPass });
+  const dday = calcDday(headerPass.tripStartDate);
 
   const handleOpen = () => {
     setFormData({ ...headerPass });
@@ -24,7 +38,10 @@ export default function HeaderPass({ headerPass, onUpdate }) {
     <div className="pass">
       <div className="pass-top">
         <div className="pass-title-row">
-          <h1>{headerPass.title}</h1>
+          <div className="pass-title-group">
+            <h1>{headerPass.title}</h1>
+            {dday && <span className="dday-badge">{dday}</span>}
+          </div>
           <button
             type="button"
             className="btn-edit-pass btn-edit-pass-sm"
@@ -77,6 +94,14 @@ export default function HeaderPass({ headerPass, onUpdate }) {
                   value={formData.title}
                   onChange={(e) => handleChange('title', e.target.value)}
                   required
+                />
+              </div>
+              <div className="form-group">
+                <label>출발일 (D-day 계산 기준)</label>
+                <input
+                  type="date"
+                  value={formData.tripStartDate || ''}
+                  onChange={(e) => handleChange('tripStartDate', e.target.value)}
                 />
               </div>
               <div className="form-row">
