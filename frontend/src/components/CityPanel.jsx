@@ -1,27 +1,9 @@
-import React, { useState } from 'react';
-import { Plus, Edit2, Check, X } from 'lucide-react';
+import React from 'react';
+import { Plus } from 'lucide-react';
 import DayScheduleCard from './DayScheduleCard';
 import StayTransCard from './StayTransCard';
 
 export default function CityPanel({ city, onUpdateCity }) {
-  const [isEditingHeader, setIsEditingHeader] = useState(false);
-  const [headerData, setHeaderData] = useState({
-    title: city.title,
-    dates: city.dates,
-    tagline: city.tagline
-  });
-
-  const handleSaveHeader = (e) => {
-    e.preventDefault();
-    onUpdateCity({
-      ...city,
-      title: headerData.title,
-      dates: headerData.dates,
-      tagline: headerData.tagline
-    });
-    setIsEditingHeader(false);
-  };
-
   // 일차별 업데이트
   const handleUpdateDay = (updatedDay) => {
     const updatedDays = city.days.map((d) => (d.id === updatedDay.id ? updatedDay : d));
@@ -65,55 +47,7 @@ export default function CityPanel({ city, onUpdateCity }) {
           <h2>{city.title}</h2>
           <span className="stay-badge">{city.dates}</span>
         </div>
-        <button
-          type="button"
-          className="icon-action-btn edit"
-          onClick={() => {
-            setHeaderData({ title: city.title, dates: city.dates, tagline: city.tagline });
-            setIsEditingHeader(!isEditingHeader);
-          }}
-          title="도시 기본 정보 수정"
-        >
-          <Edit2 size={14} /> <span>도시 정보 수정</span>
-        </button>
       </div>
-
-      {isEditingHeader && (
-        <form onSubmit={handleSaveHeader} className="city-header-edit-form">
-          <div className="form-row">
-            <input
-              type="text"
-              value={headerData.title}
-              placeholder="도시명 (예: 바르셀로나)"
-              onChange={(e) => setHeaderData({ ...headerData, title: e.target.value })}
-              required
-            />
-            <input
-              type="text"
-              value={headerData.dates}
-              placeholder="일정 기간 (예: 4/18(일)~4/22(목))"
-              onChange={(e) => setHeaderData({ ...headerData, dates: e.target.value })}
-              required
-            />
-          </div>
-          <div className="form-group">
-            <input
-              type="text"
-              value={headerData.tagline}
-              placeholder="도시 한줄 소개 및 가이드 팁"
-              onChange={(e) => setHeaderData({ ...headerData, tagline: e.target.value })}
-            />
-          </div>
-          <div className="form-actions">
-            <button type="submit" className="btn-confirm">
-              <Check size={14} /> 저장
-            </button>
-            <button type="button" className="btn-cancel" onClick={() => setIsEditingHeader(false)}>
-              <X size={14} /> 취소
-            </button>
-          </div>
-        </form>
-      )}
 
       <div className="city-tagline">{city.tagline}</div>
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Edit2, Plane, Calendar, MapPin, Compass, Check, X } from 'lucide-react';
+import { Edit2, Plane, Calendar, Compass, Check, X } from 'lucide-react';
 
 export default function HeaderPass({ headerPass, onUpdate }) {
   const [isEditing, setIsEditing] = useState(false);
@@ -24,17 +24,15 @@ export default function HeaderPass({ headerPass, onUpdate }) {
     <div className="pass">
       <div className="pass-top">
         <div className="pass-title-row">
-          <div>
-            <span className="eyebrow">IBERIAN HONEYMOON PASS</span>
-            <h1>{headerPass.title}</h1>
-          </div>
+          <h1>{headerPass.title}</h1>
           <button
             type="button"
             className="btn-edit-pass"
             onClick={handleOpen}
-            title="항공권 및 기본 일정 수정"
+            title="항공권 및 기본 일정 요약 수정"
           >
-            <Edit2 size={14} /> <span>일정 요약 수정</span>
+            <Edit2 size={13} />
+            <span>일정 요약 수정</span>
           </button>
         </div>
       </div>
