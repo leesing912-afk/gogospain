@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Edit2, Trash2, Plus, Check, X, Building2, Send } from 'lucide-react';
 
 export default function StayTransCard({ hotels, nextRoute, cityColor, onUpdateHotels, onUpdateNextRoute }) {
-  const [isOpen, setIsOpen] = useState(false);
   const [editingHotelIdx, setEditingHotelIdx] = useState(null);
   const [hotelForm, setHotelForm] = useState({ name: '', note: '' });
   const [isAddingHotel, setIsAddingHotel] = useState(false);
@@ -49,12 +48,7 @@ export default function StayTransCard({ hotels, nextRoute, cityColor, onUpdateHo
   };
 
   return (
-    <details className="info" open={isOpen} onToggle={(e) => setIsOpen(e.target.open)}>
-      <summary style={{ color: cityColor }}>
-        <span>🏨 숙소 &amp; 다음 구간 이동 정보</span>
-        <span className={`chev ${isOpen ? 'open' : ''}`}>▾</span>
-      </summary>
-
+    <div className="info-panel" style={{ '--c': cityColor }}>
       <div className="info-body">
         <div className="subgrid">
           {/* 추천 숙소 박스 */}
@@ -199,6 +193,6 @@ export default function StayTransCard({ hotels, nextRoute, cityColor, onUpdateHo
           </div>
         </div>
       </div>
-    </details>
+    </div>
   );
 }

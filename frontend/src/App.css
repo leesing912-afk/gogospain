@@ -450,6 +450,37 @@ section.city {
   margin-block: 14px 14px;
 }
 
+/* ─── CITY SUB-TABS (일정 / 숙소&다음구간) ────── */
+.sub-tabbar {
+  display: flex;
+  gap: 4px;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 4px;
+  margin-bottom: 14px;
+}
+.sub-tab-btn {
+  flex: 1;
+  appearance: none;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 8px 10px;
+  border-radius: 9px;
+  font-family: var(--display);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--ink-soft);
+  transition: background 0.15s, color 0.15s;
+}
+.sub-tab-btn:hover { color: var(--ink); }
+.sub-tab-btn[aria-selected="true"] {
+  background: var(--c, var(--accent));
+  color: #fff;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+}
+
 /* ─── DAY CARDS (토글 닫힌 디폴트) ──────────── */
 .days-container {
   display: flex;
@@ -751,26 +782,13 @@ section.city {
 }
 
 /* ─── INFO / STAY-TRANS ─────────────────────── */
-details.info {
-  margin-top: 12px;
+.info-panel {
   border-radius: 12px;
   overflow: hidden;
   background: var(--info-bg);
   border: 1px solid color-mix(in srgb, var(--c, var(--accent)) 35%, var(--line));
 }
-details.info summary {
-  list-style: none;
-  cursor: pointer;
-  padding: 10px 14px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-family: var(--display);
-  font-weight: 800;
-  font-size: 0.86rem;
-}
-details.info summary::-webkit-details-marker { display: none; }
-.info-body { padding: 2px 14px 14px; }
+.info-body { padding: 14px; }
 
 .subgrid {
   display: grid;
